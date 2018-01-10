@@ -8,6 +8,7 @@ import argparse
 import imutils
 import cv2
 import dumper
+from unidecode import unidecode
 
 # construct the argument parse and parse the arguments
 ap = argparse.ArgumentParser()
@@ -21,7 +22,7 @@ if args['silent']:
 	silent = True
 
 # load the image
-image = cv2.imread(args["image"])
+image = cv2.imread(unidecode(args["image"]))
 orig = image.copy()
 
 # load labels
