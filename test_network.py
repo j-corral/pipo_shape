@@ -8,7 +8,6 @@ import argparse
 import imutils
 import cv2
 import dumper
-from unidecode import unidecode
 
 # construct the argument parse and parse the arguments
 ap = argparse.ArgumentParser()
@@ -22,7 +21,16 @@ if args['silent']:
 	silent = True
 
 # load the image
-image = cv2.imread(unidecode(args["image"]))
+#image = cv2.imread(unidecode(args["image"]))
+#read the data from the file
+with open(args["image"], 'rb') as infile:
+     buf = infile.read()
+#use numpy to construct an array from the bytes
+img = np.fromstring(buf, dtype='uint8')
+image = cv2.imdecode(img, cv2.IMREAD_UNCHANGED)
+
+
+
 orig = image.copy()
 
 # load labels
